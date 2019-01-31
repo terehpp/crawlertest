@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd"
+            xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+            xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+            jaxb:extensionBindingPrefixes="xjc" jaxb:version="2.1">
+
+    <xsd:element name="Entry">
+        <xsd:complexType>
+            <xsd:sequence minOccurs="1">
+                <xsd:element name="content" type="stringMaxSize1024" nillable="false"/>
+                <xsd:element name="creationDate" type="dateTimeString" nillable="false"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:simpleType name="stringMaxSize1024">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="1024"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="dateTimeString">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[0-9]{4}-[0-9]{2}-[0-9]{2}\s[0-9]{2}:[0-9]{2}:[0-9]{2}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+</xsd:schema>

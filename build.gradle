@@ -1,0 +1,47 @@
+group 'org.terehpp'
+version '1.0'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    manifest {
+        attributes 'Main-Class': 'org.terehpp.crawler.App'
+    }
+}
+
+task buildDistr(type: Copy){
+    //clear distr
+    delete "distr"
+
+    //build
+    dependsOn build
+
+    //copy artifact to distr
+    from "build/libs/" into "distr"
+
+    //copy properties file to distr
+    from "src/main/resources/crawler.properties" into "distr"
+
+    //copy XSD schema file to distr
+    from "src/main/resources/entry.xsd" into "distr"
+
+    from "scripts/start.bat" into "distr"
+    from "scripts/start.sh" into "distr"
+}
+
+dependencies {
+    compile 'log4j:log4j:1.2.17'
+    compile 'commons-logging:commons-logging:1.2'
+    compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.3.7.Final'
+    compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.3.7.Final'
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.2.jre7'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
