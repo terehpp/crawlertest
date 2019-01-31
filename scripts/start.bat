@@ -1,1 +1,1 @@
-java -jar crawler-1.0.jar -properties.location crawler.properties
+java -Dfile.encoding=UTF-8 -jar crawler-1.0.jar -properties.location crawler.properties
